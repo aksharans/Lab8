@@ -39,8 +39,10 @@ describe('Basic user flow for SPA ', () => {
   }, 10000);
 
   it('Test4: On first Entry page - checking page header title', async () => {
-    const pageTitle = await page.title();
-    expect(pageTitle).toBe('Entry 1');
+    const pageTitle = await page.$('header > h1');
+    const html = await page.evaluate(body => body.innerHTML, pageTitle);
+    await pageTitle.dispose();
+    expect(html).toBe('Entry 1');
   });
 
   it('Test5: On first Entry page - checking <entry-page> contents', async () => {
@@ -96,8 +98,10 @@ describe('Basic user flow for SPA ', () => {
   }, 10000);
 
   it('Test8: On Settings page - checking page header title', async () => {
-    const pageTitle = await page.title();
-    expect(pageTitle).toBe('Settings');
+    const pageTitle = await page.$('header > h1');
+    const html = await page.evaluate(body => body.innerHTML, pageTitle);
+    await pageTitle.dispose();
+    expect(html).toBe('Settings');
   });
 
   it('Test9: On Settings page - checking <body> element classes', async () => {
@@ -124,8 +128,10 @@ describe('Basic user flow for SPA ', () => {
 
 
   it('Test12: When the user if on the homepage, the header title should be “Journal Entries”', async () => {
-    const pageTitle = await page.title();
-    expect(pageTitle).toBe('Journal Entries');
+    const pageTitle = await page.$('header > h1');
+    const html = await page.evaluate(body => body.innerHTML, pageTitle);
+    await pageTitle.dispose();
+    expect(html).toBe('Journal Entries');
   });
 
 
@@ -150,8 +156,10 @@ describe('Basic user flow for SPA ', () => {
 
 
   it('Test15: Verify the title is current when clicking on the second entry', async () => {
-    const pageTitle = await page.title();
-    expect(pageTitle).toBe('Entry 2');
+    const pageTitle = await page.$('header > h1');
+    const html = await page.evaluate(body => body.innerHTML, pageTitle);
+    await pageTitle.dispose();
+    expect(html).toBe('Entry 2');
   });
 
 
@@ -167,20 +175,21 @@ describe('Basic user flow for SPA ', () => {
       audio: null
     };
 
-    const entryTitle = await page.$eval('pierce/.entry-title', (element) => {
-      return element.innerHTML;
+
+    const entryTitle = await page.$eval('entry-page', (element) => {
+      return element.entry.title;
     });
-    const entryDate = await page.$eval('pierce/.entry-date', (element) => {
-      return element.innerHTML;
+    const entryDate = await page.$eval('entry-page', (element) => {
+      return element.entry.date;
     });
-    const entryContent = await page.$eval('pierce/.entry-content', (element) => {
-      return element.innerHTML;
+    const entryContent = await page.$eval('entry-page', (element) => {
+      return element.entry.content;
     });
-    const entryImageSrc = await page.$eval('pierce/.entry-image', (element) => {
-      return element.getAttribute('src');
+    const entryImageSrc = await page.$eval('entry-page', (element) => {
+      return element.entry.image.src;
     });
-    const entryImageAlt = await page.$eval('pierce/.entry-image', (element) => {
-      return element.getAttribute('alt');
+    const entryImageAlt = await page.$eval('entry-page', (element) => {
+      return element.entry.image.alt;
     });
     
     expect(entryTitle).toBe(secondEntryContents.title);
