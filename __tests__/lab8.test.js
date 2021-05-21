@@ -168,13 +168,13 @@ describe('Basic user flow for SPA ', () => {
     };
 
     const entryTitle = await page.$eval('pierce/.entry-title', (element) => {
-      return element.innerHTML
+      return element.innerHTML;
     });
     const entryDate = await page.$eval('pierce/.entry-date', (element) => {
-      return element.innerHTML
+      return element.innerHTML;
     });
     const entryContent = await page.$eval('pierce/.entry-content', (element) => {
-      return element.innerHTML
+      return element.innerHTML;
     });
     const entryImageSrc = await page.$eval('pierce/.entry-image', (element) => {
       return element.getAttribute('src');
@@ -201,7 +201,7 @@ describe('Basic user flow for SPA ', () => {
     const navbarColor = await page.$eval("header", (element) => {
       return window.getComputedStyle(element).getPropertyValue('background-color');
     });
-    expect(navbarColor).toBe('rgb(197, 197, 197)');
+    expect(navbarColor).toBe('rgb(157, 157, 157)');
   
   }, 20000);
 
