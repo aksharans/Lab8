@@ -156,7 +156,7 @@ describe('Basic user flow for SPA ', () => {
 
 
   it('Test16: Verify the entry page contents is correct when clicking on the second entry', async () => {
-    const journalContents = {
+    const secondEntryContents = {
       date: "4/26/2021",
       title: "Run, Forrest! Run!",
       content: "Mama always said life was like a box of chocolates. You never know what you're gonna get.",
@@ -183,11 +183,11 @@ describe('Basic user flow for SPA ', () => {
       return element.getAttribute('alt');
     });
     
-    expect(entryTitle).toBe(journalContents.title);
-    expect(entryDate).toBe(journalContents.date);
-    expect(entryContent).toBe(journalContents.content);
-    expect(entryImageSrc).toBe(journalContents.image.src);
-    expect(entryImageAlt).toBe(journalContents.image.alt);
+    expect(entryTitle).toBe(secondEntryContents.title);
+    expect(entryDate).toBe(secondEntryContents.date);
+    expect(entryContent).toBe(secondEntryContents.content);
+    expect(entryImageSrc).toBe(secondEntryContents.image.src);
+    expect(entryImageAlt).toBe(secondEntryContents.image.alt);
   }, 10000);
 
   it('Test17: "Settings" navigation bar has different color', async () => {
@@ -201,7 +201,7 @@ describe('Basic user flow for SPA ', () => {
     const navbarColor = await page.$eval("header", (element) => {
       return window.getComputedStyle(element).getPropertyValue('background-color');
     });
-    expect(navbarColor.backgroundColor).toBe('#9d9d9d');
+    expect(navbarColor).toBe('rgb(197, 197, 197)');
   
   }, 20000);
 
@@ -211,7 +211,7 @@ describe('Basic user flow for SPA ', () => {
     const navbarColor = await page.$eval("header", (element) => {
       return window.getComputedStyle(element).getPropertyValue('background-color');
     });
-    expect(navbarColor).toBe('#D9D281');
+    expect(navbarColor).toBe('rgb(217, 210, 129)');
   }, 10000);
 
   it('Test19: No extraneous audio placed on single entry pages with no audio content', async () => {
@@ -220,16 +220,6 @@ describe('Basic user flow for SPA ', () => {
     
     await firstEntry.click();
     await page.waitForNavigation();
-
-    const journalContents = { 
-      title: 'You like jazz?',
-      date: '4/25/2021',
-      content: "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible.",
-      image: {
-        src: 'https://i1.wp.com/www.thepopcornmuncher.com/wp-content/uploads/2016/11/bee-movie.jpg?resize=800%2C455',
-        alt: 'bee with sunglasses'
-      }
-    };
 
     const entryAudio = await page.$('.entry-audio');
     expect(entryAudio).toBe(null);
